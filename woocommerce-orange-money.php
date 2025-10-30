@@ -36,6 +36,13 @@ function wc_orange_money_init() {
 }
 add_action('plugins_loaded', 'wc_orange_money_init', 11);
 
+add_action('before_woocommerce_init', function() {
+    if (class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('cart_checkout_blocks', __FILE__, false);
+    }
+});
+
 function wc_orange_money_add_gateway($gateways) {
     $gateways[] = 'WC_Gateway_Orange_Money';
     return $gateways;
