@@ -44,8 +44,20 @@ add_action('plugins_loaded', 'wc_orange_money_init', 11);
 add_action('before_woocommerce_init', function() {
     if (class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
         \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
-        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('cart_checkout_blocks', __FILE__, false);
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('cart_checkout_blocks', __FILE__, true);
     }
+});
+
+add_action('woocommerce_blocks_loaded', function() {
+    if (!class_exists('Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType')) {
+        return;
+    }
+
+    require_once WC_ORANGE_MONEY_PLUGIN_PATH . 'includes/class-wc-orange-money-blocks-support.php';
+
+    add_action('woocommerce_blocks_payment_method_type_registration', function($payment_method_registry) {
+        $payment_method_registry->register(new WC_Orange_Money_Blocks_Support());
+    });
 });
 
 function wc_orange_money_plugin_links($links) {
