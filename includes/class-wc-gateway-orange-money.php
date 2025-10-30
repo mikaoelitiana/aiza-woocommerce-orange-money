@@ -13,6 +13,7 @@ class WC_Gateway_Orange_Money extends WC_Payment_Gateway {
     public $consumer_key;
     public $client_id;
     public $client_secret;
+    public $webhook_url;
     
     public function __construct() {
         $this->id = 'orange_money';
@@ -36,6 +37,7 @@ class WC_Gateway_Orange_Money extends WC_Payment_Gateway {
         $this->consumer_key = $this->get_option('consumer_key');
         $this->client_id = $this->get_option('client_id');
         $this->client_secret = $this->get_option('client_secret');
+        $this->webhook_url = $this->get_option('webhook_url');
 
         add_action('woocommerce_update_options_payment_gateways_' . $this->id, array($this, 'process_admin_options'));
         add_action('woocommerce_api_wc_gateway_orange_money', array($this, 'handle_webhook'));
@@ -96,6 +98,16 @@ class WC_Gateway_Orange_Money extends WC_Payment_Gateway {
                 'description' => __('Get your client secret from Orange Money developer portal.', 'woocommerce-orange-money'),
                 'default' => '',
                 'desc_tip' => true,
+            ),
+            'webhook_url' => array(
+                'title' => __('Custom Webhook URL', 'woocommerce-orange-money'),
+                'type' => 'text',
+                'description' => sprintf(
+                    __('Optional: Override the default webhook URL. Leave empty to use: %s<br>For local development, use ngrok or similar service to make your webhook publicly accessible.', 'woocommerce-orange-money'),
+                    WC()->api_request_url('wc_gateway_orange_money')
+                ),
+                'default' => '',
+                'placeholder' => WC()->api_request_url('wc_gateway_orange_money'),
             ),
         );
     }
@@ -173,7 +185,7 @@ class WC_Gateway_Orange_Money extends WC_Payment_Gateway {
             'currency' => $this->testmode ? 'OUV' : get_woocommerce_currency(),
             'order_id' => $order_ref,
             'amount' => (float) $order->get_total(),
-            'notif_url' => WC()->api_request_url('wc_gateway_orange_money'),
+            'notif_url' => !empty($this->webhook_url) ? $this->webhook_url : WC()->api_request_url('wc_gateway_orange_money'),
             'return_url' => $this->get_return_url($order),
             'cancel_url' => wc_get_checkout_url(),
             'lang' => substr(get_locale(), 0, 2),
