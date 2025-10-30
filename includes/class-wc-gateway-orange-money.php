@@ -101,7 +101,9 @@ class WC_Gateway_Orange_Money extends WC_Payment_Gateway {
     }
 
     public function is_available() {
-        if ('yes' !== $this->enabled) {
+        $is_available = parent::is_available();
+        
+        if (!$is_available) {
             return false;
         }
 

@@ -25,6 +25,11 @@ define('WC_ORANGE_MONEY_PLUGIN_FILE', __FILE__);
 define('WC_ORANGE_MONEY_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('WC_ORANGE_MONEY_PLUGIN_URL', plugin_dir_url(__FILE__));
 
+function wc_orange_money_add_gateway($gateways) {
+    $gateways[] = 'WC_Gateway_Orange_Money';
+    return $gateways;
+}
+
 function wc_orange_money_init() {
     if (!class_exists('WC_Payment_Gateway')) {
         return;
@@ -42,11 +47,6 @@ add_action('before_woocommerce_init', function() {
         \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('cart_checkout_blocks', __FILE__, false);
     }
 });
-
-function wc_orange_money_add_gateway($gateways) {
-    $gateways[] = 'WC_Gateway_Orange_Money';
-    return $gateways;
-}
 
 function wc_orange_money_plugin_links($links) {
     $settings_url = admin_url('admin.php?page=wc-settings&tab=checkout&section=orange_money');
