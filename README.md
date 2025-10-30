@@ -25,6 +25,17 @@ This plugin integrates Orange Money Madagascar's WebPay API into your WooCommerc
 
 ## Installation
 
+### Via Composer (Recommended)
+
+1. Add the plugin to your WordPress project:
+   ```bash
+   composer require mikaoelitiana/woocommerce-orange-money
+   ```
+
+2. Activate the plugin through the 'Plugins' menu in WordPress
+
+### Manual Installation
+
 1. Download or clone this repository to your WordPress plugins directory:
    ```bash
    cd wp-content/plugins/

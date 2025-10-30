@@ -1,0 +1,45 @@
+{
+    "name": "mikaoelitiana/woocommerce-orange-money",
+    "description": "Orange Money Madagascar payment gateway for WooCommerce using WebPay API",
+    "type": "wordpress-plugin",
+    "keywords": [
+        "wordpress",
+        "woocommerce",
+        "payment-gateway",
+        "orange-money",
+        "madagascar",
+        "webpay",
+        "mobile-money"
+    ],
+    "homepage": "https://github.com/mikaoelitiana/aiza-woocommerce-orange-money",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Mika Andrianarijaona",
+            "email": "mikaoelitiana@users.noreply.github.com",
+            "homepage": "https://github.com/mikaoelitiana",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/mikaoelitiana/aiza-woocommerce-orange-money/issues",
+        "source": "https://github.com/mikaoelitiana/aiza-woocommerce-orange-money"
+    },
+    "require": {
+        "php": ">=7.4",
+        "composer/installers": "^1.0 || ^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "wp-coding-standards/wpcs": "^2.3"
+    },
+    "autoload": {
+        "classmap": [
+            "includes/"
+        ]
+    },
+    "extra": {
+        "installer-name": "woocommerce-orange-money"
+    },
+    "minimum-stability": "stable"
+}
