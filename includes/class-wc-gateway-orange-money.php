@@ -8,6 +8,12 @@ class WC_Gateway_Orange_Money extends WC_Payment_Gateway {
 
     const API_BASE_URL = 'https://api.orange.com';
     
+    public $testmode;
+    public $merchant_key;
+    public $consumer_key;
+    public $client_id;
+    public $client_secret;
+    
     public function __construct() {
         $this->id = 'orange_money';
         $this->icon = apply_filters('woocommerce_orange_money_icon', '');
